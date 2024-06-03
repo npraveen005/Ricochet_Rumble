@@ -1,0 +1,505 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
+body{
+    background-color: #222831;
+    overflow: hidden;
+}
+
+#gameBoard{
+    width: 490px;
+    height: 490px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgb(255, 73, 73, 0.85);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: rgb(255, 73, 73);
+    transition-duration: 0.25s;
+}
+
+.square{
+    height: 60px;
+    width: 60px;
+    background-color: white;
+    border: 1px grey solid;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.pieces{
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+
+/* for smooth edges on all corners of the board */
+.square:nth-child(1){
+    border-radius: 5px 0px 0px 0px;
+}
+.square:nth-child(8){
+    border-radius: 0px 5px 0px 0px;
+}
+.square:nth-child(57){
+    border-radius: 0px 0px 0px 5px;
+}
+.square:nth-child(64){
+    border-radius: 0px 0px 5px 0px;
+}
+.square:nth-child(57){
+    border-radius: 0px 0px 0px 5px;
+}
+
+
+
+.green{
+    background-color: greenyellow;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.red{
+    color: red;
+}
+
+.blue{
+    color: blue;
+}
+
+#playersTurn{
+    font-size: 2rem;
+    font-weight: bold;
+    transition-duration: 0.5s;
+    -webkit-text-stroke: 0.01px rgba(255, 255, 255, 0.15);
+}
+
+#ricochet.red{
+    background-image: url("./media/ricochet_red_transparent.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition-duration: 100ms;
+}
+
+#ricochet.blue{
+    background-image: url("./media/ricochet_blue_transparent.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition-duration: 100ms;
+}
+
+#ricochet-turn{
+    visibility: hidden;
+    display: flex;
+    gap: 1rem;
+}
+
+#ricochet-turn button{
+    border: 0px;
+    background-color: hsla(0, 0%, 100%, 0);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#boardContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+#container{
+    display: flex;
+    gap: 10%;
+    height: 100dvh;
+}
+
+#semiRicochet.red{
+    background-image: url("./media/semi_ricochet_red.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition-duration: 100ms;
+}
+
+#semiRicochet.blue{
+    background-image: url("./media/semi_ricochet_blue.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition-duration: 100ms;
+}
+
+#tank.red{
+    background-image: url("./media/red_tank_vertical.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#tank.blue{
+    background-image: url("./media/blue_tank_vertical.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#cannon.blue{
+    background-image: url("./media/blue_cannon.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#cannon.red{
+    background-image: url("./media/red_cannon.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#titan.red{
+    background-image: url("./media/red_titan.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#titan.blue{
+    background-image: url("./media/blue_titan.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.timer{
+    display: flex;
+    align-items: center;
+    gap: 10rem;
+    color: #76ABAE;
+}
+
+#replay img{
+    scale: 0.7;
+    width: 100%;
+}
+
+#undo, #redo, #swap, #restart, #pause, #replay, #settings{
+    width: 5rem;
+    height: 5rem;
+    font-size: 3rem;
+    text-align: center;
+    background-color: hsla(0, 0%, 100%, 0);
+    box-shadow: 0px 0px 10px hsla(0, 0%, 0%, 0.2);
+    border: none;
+    border-radius: 10%;
+    transition-duration: 0.25s;
+    cursor: pointer;
+}
+
+#spellButton{
+    transition-duration: 0.25s;
+}
+
+.popup{
+    background-color: #121417;
+    color: white;
+    padding: 1rem;
+    min-width: 15rem;
+    max-width: 20rem;
+    border: 2px #76ABAE solid;
+    position: fixed;
+    top: 5%;
+    right: 1%;
+    visibility: collapse;
+}
+
+.disabled{
+    color: hsla(0, 0%, 0%, 0.5);
+}
+
+.selected{
+    border:  2px black solid;
+}
+
+#swap.enabled, .enabled{
+    background-color: hsl(0, 0%, 0%, 1);
+    color: white;
+}
+
+#undo:active, #redo:active, #restart:active, #pause:active, #swap:active, #replay:active, #settings:active{
+    scale: 0.95;
+}
+
+#undo:hover, #redo:hover, #restart:hover, #pause:hover, #replay:hover, #settings:hover{
+    background-color: hsla(0, 0%, 0%, 0.3);
+}
+
+#buttonContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #76ABAE;
+    padding: 1rem;
+    box-shadow: 5px 5px 10px hsla(0, 0%, 0%, 0.5);
+}
+
+#playerHistory{
+    color: white;
+    text-align: center;
+    line-height: 250%;
+    background-color: #121417;
+    box-shadow: 0px 0px 10px #121417;
+    overflow: hidden;
+    transition-duration: 1s;
+}
+
+#playerHistoryContainer{
+    width: 100%;
+    overflow: auto;
+}
+
+::-webkit-scrollbar{
+    background-color: #222831;
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #76ABAE;
+    width: 7px;
+}
+
+.blink{
+    background-color: red;
+    border-radius: 50%;
+    scale: 0.4;
+    height: 100%;
+    width: 100%;
+    animation: blinkAnimation 1s infinite;
+}
+
+#movesButton{
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 1.1rem;
+    display: none;
+}
+
+#spellButton{
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+#replayMenuContainer, #settingsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% );
+
+    visibility: collapse;
+}
+
+#replayMenuContainer #closeButton, #settingsContainer #closeButton{
+    font-size: 2rem;
+    color: red;
+    text-align: center;
+    cursor: pointer;
+}
+
+#left, #right{
+    width: 5rem;
+    height: 2rem;
+    font-size: 1.15rem;
+    color: #76ABAE;
+    font-weight: bold;
+    text-shadow: 0px 0px 10px black;
+}
+
+#replayMenu{
+    background-color: #222831;
+    padding: 1rem;
+    border-radius: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    height: 15rem;
+    width: 15rem;
+    overflow: auto;
+}
+
+#settingsWindow, #chooseBot{
+    background-color: #76ABAE;
+    border: 3px black solid;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    height: 15rem;
+    width: 15rem;
+    overflow: hidden;
+}
+
+#chooseBot{
+    visibility: collapse;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% );
+}
+
+#replayMenu button{
+    width: 100%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: black;
+}
+
+#darkDiv{
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100dvh;
+    width: 100%;
+    visibility: collapse;
+
+    position: fixed;
+    top: 0%;
+    left: 0%;
+}
+
+
+/* Mobile responsive */
+@media (max-width: 460px){
+    #gameBoard{
+        width: 330px;
+        height: 330px;
+    }
+
+    .square, .pieces{
+        width: 40px;
+        height: 40px;
+    }
+
+    #buttonContainer{
+        flex-direction: row;
+    }
+
+    #buttonContainer button{
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.5rem;
+    }
+
+    #container{
+        flex-direction: column;
+        justify-content: left;
+    }
+
+    .timer{
+        gap: 2rem;
+    }
+    
+    #playerHistory{
+        height: 0%;
+    }
+    
+    #playerHistoryContainer{
+        overflow: visible;
+    }
+
+    #movesButton{
+        display:inline;
+    }
+    
+    body{
+        overflow: visible;
+    }
+
+    #spellButton{
+        height: 4rem;
+        width: 4rem;
+    }
+
+    .popup{
+        min-width: 12rem;
+        max-width: 17rem;
+        font-size: 0.7rem;
+    }
+    
+}
+
+
+/* Animations */
+@keyframes bulletAnimation{
+    from{
+        transform: translateY(100%);
+    }
+
+    to{
+        transform: translateY(0%);
+    }
+}
+
+@keyframes blinkAnimation{
+    from{
+        opacity: 100%;
+    }
+
+    50%{
+        opacity: 0%;
+    }
+
+    to{
+        opacity: 100%;
+    }
+}
+
+@keyframes slideRight {
+    from{
+        transform: translate(-20%);
+        opacity: 0;
+    }
+    15%{
+        transform: translate(0%);
+        opacity: 0.7;
+    }
+    85%{
+        transform: translate(0%);
+        opacity: 0.7;
+    }
+    to{
+        transform: translate(20%);
+        opacity: 0;
+    }
+}

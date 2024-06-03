@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricochet Rumble</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="media/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="container">
+        
+        <div id="buttonContainer">
+            <button id="undo" title="undo"><i class="fa-solid fa-arrow-left"></i></button>
+            <button id="redo" title="redo"><i class="fa-solid fa-arrow-right"></i></button>
+            <button id="restart" title="restart"><i class="fa-solid fa-rotate-right"></i></button>
+            <button id="pause" state="pause" title="pause"><i class="fa-solid fa-pause"></i></button>
+            <button id="replay" title="replay"><div><img src="./media/replay_icon.png"></div></button>
+            <button id="swap" title="swap" class="disabled"><i class="fa-solid fa-rotate"></i></button>
+            <button id="settings" title="settings"><i class="fa-solid fa-gear"></i></button>
+        </div>
+        
+        <div id="boardContainer">
+            <div id="playersTurn"></div>
+            <div id="gameBoard"></div>
+            <div id="ricochet-turn">
+                <button id="left" >Left</button>
+                <button id="right">Right</button>
+            </div>
+            <div class="timer">
+                <div id="red-timer"></div>
+                <div id="blue-timer"></div>
+            </div>
+        </div>
+
+        <div id="playerHistoryContainer">
+            <button id="movesButton"><i class="fa-solid fa-caret-down"></i> Moves <i class="fa-solid fa-caret-down"></i></button>
+            <div id="playerHistory"></div>
+        </div>
+
+    </div>
+    
+    <button id="spellButton" title="Passthrough Spell">Spell</button>
+
+    <div id="darkDiv"></div>
+
+    <div id="replayMenuContainer">
+        
+        <div id="replayMenu">
+            <button id="1" onclick="replay(1)">GAME 1</button>
+            <button id="2" onclick="replay(2)">GAME 2</button>
+            <button id="3" onclick="replay(3)">GAME 3</button>
+            <button id="4" onclick="replay(4)">GAME 4</button>
+            <button id="5" onclick="replay(5)">GAME 5</button>
+            <button id="6" onclick="replay(6)">GAME 6</button>
+            <button id="7" onclick="replay(7)">GAME 7</button>
+            <button id="8" onclick="replay(8)">GAME 8</button>
+            <button id="9" onclick="replay(9)">GAME 9</button>
+            <button id="10" onclick="replay(10)">GAME 10</button>
+        </div>
+
+        <div id="closeButton"><i class="fa-solid fa-xmark"></i></div>
+
+
+    </div>
+
+    <div id="settingsContainer">
+        <div id="settingsWindow">
+            <h2>Settings</h2>
+            <div><input id="randomizeCheckBox" type="checkbox" checked> Randomize</div>
+            <div>Volume<br><input id="volume" type="range" min="0" max="100"></div>
+            <div>
+                Tank Pass through:<br>
+                <input type="radio" name="tank_pass_through" id="horizontalRadio" checked>Horizontal<br>
+                <input type="radio" name="tank_pass_through" id="verticalRadio">Vertical
+            </div>
+            <div><button id="botButton" state="single">Play with bot</button></div>
+        </div>
+
+        <div id="closeButton"><i class="fa-solid fa-xmark"></i></div>
+
+    </div>
+
+    <div id="chooseBot">
+        Play as
+        <button onclick="randomizeAndInitializeBoard('single', 'red')">Blue</button>
+    </div>
+
+    <script src="pieces.js"></script>
+    <script src="index.js"></script>
+    <script src="replay.js"></script>
+    <script src="spells.js"></script>
+    <script src="bot.js"></script>
+    <script src="https://kit.fontawesome.com/dac89c04df.js" crossorigin="anonymous"></script>
+</body>
+</html>
